@@ -14,15 +14,19 @@
 library(ShinyAppBuilder)
 library(OhdsiShinyModules)
 
-resultsDatabaseSchema <- "results"
+resultsDatabaseSchema <- "strategus_results"
 
 # Specify the connection to the results database
-resultsConnectionDetails <- DatabaseConnector::createConnectionDetails(
-  dbms = "postgresql",
-  server = Sys.getenv("OHDSI_RESULTS_DATABASE_SERVER"),
-  user = Sys.getenv("OHDSI_RESULTS_DATABASE_USER"),
-  password = Sys.getenv("OHDSI_RESULTS_DATABASE_PASSWORD")
-)
+ resultsConnectionDetails <- DatabaseConnector::createConnectionDetails(
+   dbms = "postgresql",
+   server = Sys.getenv("CLOUD_POSTGRE_SERVER_DB"),
+   port=Sys.getenv("CLOUD_POSTGRE_PORT"),
+   user = Sys.getenv("CLOUD_BDM_DEVELOPER"),
+   password = Sys.getenv("CLOUD_BDM_DEVELOPER_PWD")
+
+ )
+
+
 
 # ADD OR REMOVE MODULES TAILORED TO YOUR STUDY
 shinyConfig <- initializeModuleConfig() |>
@@ -54,4 +58,6 @@ ShinyAppBuilder::createShinyApp(
   config = shinyConfig, 
   connectionDetails = resultsConnectionDetails,
   resultDatabaseSettings = createDefaultResultDatabaseSettings(schema = resultsDatabaseSchema)
+  title = "Strategus Event November 2025",
+  studyDescription = "This study is showcasing the capabilities of running Strategus on NVFlare network"
 )

@@ -17,24 +17,45 @@ Sys.setenv("_JAVA_OPTIONS"="-Xmx4g") # Sets the Java maximum heap space to 4GB
 Sys.setenv("VROOM_THREADS"=1) # Sets the number of threads to 1 to avoid deadlocks on file system
 
 ##=========== START OF INPUTS ==========
-cdmDatabaseSchema <- "main"
-workDatabaseSchema <- "main"
-outputLocation <- file.path(getwd(), "results")
-databaseName <- "Eunomia" # Only used as a folder name for results from the study
-minCellCount <- 5
-cohortTableName <- "sample_study"
+# schema containing federated site omop data.The user (as identified in the connection details) will need to have read access to this database schema.
+cdmDatabaseSchema <-"synthea_bdm"
+# schema that will contain the analysis result. The user (as identified in the connection details) will need to have write access to this database schema.
+workDatabaseSchema <- "strategus_results"
+
+#folder where result will be recorded
+outputLocation <- Sys.getenv("STRATEGUS_ROOT_FOLDER")
+
+#Only used as a folder name for results from the study
+databaseName <- "rdb"
+
+
+dbUser <- Sys.getenv("CLOUD_BDM_DEVELOPER")
+
+#database path in the form server/bdname
+# bdmserver <-  Sys.getenv("CLOUD_POSTGRE_SERVER_DB")
 
 # Create the connection details for your CDM
 # More details on how to do this are found here:
 # https://ohdsi.github.io/DatabaseConnector/reference/createConnectionDetails.html
-# connectionDetails <- DatabaseConnector::createConnectionDetails(
-#   dbms = Sys.getenv("DBMS_TYPE"),
-#   connectionString = Sys.getenv("CONNECTION_STRING"),
-#   user = Sys.getenv("DBMS_USERNAME"),
-#   password = Sys.getenv("DBMS_PASSWORD")
-# )
+ connectionDetails <- DatabaseConnector::createConnectionDetails(
+   dbms = "postgresql",
+   server = Sys.getenv("CLOUD_POSTGRE_SERVER_DB"),
+   port=Sys.getenv("CLOUD_POSTGRE_PORT"),
+   user = Sys.getenv("CLOUD_BDM_DEVELOPER"),
+   password = Sys.getenv("CLOUD_BDM_DEVELOPER_PWD")
 
-# For this example we will use the Eunomia sample data 
+ )
+
+
+minCellCount <- 5 #The minimum number of subjects contributing to a count before it can be included in results.
+cohortTableName <- CohortGenerator::getCohortTableNames(cohortTable = "cohort") 
+
+
+
+
+
+
+# For this example we will use the Eunomia sample data
 # set. This library is not installed by default so you
 # can install this by running:
 #
@@ -45,26 +66,31 @@ connectionDetails <- Eunomia::getEunomiaConnectionDetails()
 #conn <- DatabaseConnector::connect(connectionDetails)
 #DatabaseConnector::disconnect(conn)
 
+analysisName <- "WarfarinStudy"
+strategusWorkFolder <- file.path(outputLocation, databaseName, analysisName,"strategusWork")
+strategusOutputFolder <- file.path(outputLocation, databaseName, analysisName,"strategusOutput")
 ##=========== END OF INPUTS ==========
-analysisSpecifications <- ParallelLogger::loadSettingsFromJson(
-  fileName = "inst/sampleStudy/sampleStudyAnalysisSpecification.json"
+analysisSpecifications <- ParallelLogger::loadSettingsFromJson(fileName = file.path("inst","Atlas",analysisName,"StudyAnalysisSpecification.json")
 )
 
+# ====================================================================
+# Creating execution settings
+# ====================================================================
 executionSettings <- Strategus::createCdmExecutionSettings(
-  workDatabaseSchema = workDatabaseSchema,
+  workDatabaseSchema = workDatabaseSchema, # database schema
   cdmDatabaseSchema = cdmDatabaseSchema,
-  cohortTableNames = CohortGenerator::getCohortTableNames(cohortTable = cohortTableName),
-  workFolder = file.path(outputLocation, databaseName, "strategusWork"),
-  resultsFolder = file.path(outputLocation, databaseName, "strategusOutput"),
+  cohortTableNames = cohortTableName,
+  workFolder = strategusWorkFolder,
+  resultsFolder = strategusOutputFolder,
   minCellCount = minCellCount
 )
 
-if (!dir.exists(file.path(outputLocation, databaseName))) {
-  dir.create(file.path(outputLocation, databaseName), recursive = T)
+if (!dir.exists(file.path(outputLocation, databaseName,analysisName))) {
+  dir.create(file.path(outputLocation, databaseName,analysisName), recursive = T)
 }
 ParallelLogger::saveSettingsToJson(
   object = executionSettings,
-  fileName = file.path(outputLocation, databaseName, "executionSettings.json")
+  fileName = file.path(outputLocation, databaseName,analysisName, "executionSettings.json")
 )
 
 Strategus::execute(

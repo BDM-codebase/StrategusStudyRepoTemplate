@@ -52,9 +52,9 @@ psMatchMaxRatio <- 1 # If bigger than 1, the outcome model will be conditioned o
 # study to retrieve the cohorts you downloaded as part of
 # DownloadCohorts.R
 cohortDefinitionSet <- CohortGenerator::getCohortDefinitionSet(
-  settingsFileName = "inst/sampleStudy/Eunomia/Cohorts.csv",
-  jsonFolder = "inst/sampleStudy/Eunomia/cohorts",
-  sqlFolder = "inst/sampleStudy/Eunomia/sql/sql_server"
+  settingsFileName = "inst/Eunomia/sampleStudy/Cohorts.csv",
+  jsonFolder = "inst/Eunomia/sampleStudy/cohorts",
+  sqlFolder = "inst/Eunomia/sampleStudy/sql/sql_server"
 )
 
 # OPTIONAL: Create a subset to define the new user cohorts
@@ -74,7 +74,7 @@ cohortDefinitionSet <- cohortDefinitionSet |>
   CohortGenerator::addCohortSubsetDefinition(subset1, targetCohortIds = c(1,2))
 
 negativeControlOutcomeCohortSet <- CohortGenerator::readCsv(
-  file = "inst/sampleStudy/Eunomia/negativeControlOutcomes.csv"
+  file = "inst/Eunomia/sampleStudy/negativeControlOutcomes.csv"
 )
 
 if (any(duplicated(cohortDefinitionSet$cohortId, negativeControlOutcomeCohortSet$cohortId))) {
@@ -398,7 +398,7 @@ analysisToInclude <- data.frame()
   #indicationId <- sccsIList$indicationCohortId[i]
   getDbSccsDataArgs <- SelfControlledCaseSeries::createGetDbSccsDataArgs(
     maxCasesPerOutcome = 1000000,
-    useNestingCohort = FALSE,
+    #useNestingCohort = FALSE,
     #nestingCohortId = indicationId,
     studyStartDate = studyStartDate,
     studyEndDate = studyEndDate,
@@ -555,5 +555,5 @@ analysisSpecifications <- Strategus::createEmptyAnalysisSpecificiations() |>
 
 ParallelLogger::saveSettingsToJson(
   analysisSpecifications, 
-  file.path("inst", "sampleStudy", "Eunomia", "sampleStudyAnalysisSpecification.json")
+  file.path("inst","Eunomia","sampleStudy","sampleStudyAnalysisSpecification.json")
 )

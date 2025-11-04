@@ -17,21 +17,15 @@ analysisSpecifications <- ParallelLogger::loadSettingsFromJson(
   fileName = "inst/Atlas/WarfarinStudy/sampleStudyAnalysisSpecification.json"
 )
 
+
 resultsDatabaseConnectionDetails <- DatabaseConnector::createConnectionDetails(
   dbms = "postgresql",
-  server = Sys.getenv("OHDSI_RESULTS_DATABASE_SERVER"),
-  user = Sys.getenv("OHDSI_RESULTS_DATABASE_USER"),
-  password = Sys.getenv("OHDSI_RESULTS_DATABASE_PASSWORD")
-)
+  server = Sys.getenv("CLOUD_POSTGRE_SERVER_DB"),
+  port=Sys.getenv("CLOUD_POSTGRE_PORT"),
+  user = Sys.getenv("CLOUD_BDM_DEVELOPER"),
+  password = Sys.getenv("CLOUD_BDM_DEVELOPER_PWD")
 
-# resultsDatabaseConnectionDetails <- DatabaseConnector::createConnectionDetails(
-#   dbms = "postgresql",
-#   server = Sys.getenv("CLOUD_POSTGRE_SERVER_DB"),
-#   port=Sys.getenv("CLOUD_POSTGRE_PORT"),
-#   user = Sys.getenv("CLOUD_BDM_DEVELOPER"),
-#   password = Sys.getenv("CLOUD_BDM_DEVELOPER_PWD")
-#
-# )
+)
 # Create results data model -------------------------
 
 # Use the 1st results folder to define the results data model

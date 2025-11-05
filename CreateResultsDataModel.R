@@ -14,7 +14,7 @@
 # Code for creating the result schema and tables in a PostgreSQL database
 resultsDatabaseSchema <- "strategus_results"
 analysisSpecifications <- ParallelLogger::loadSettingsFromJson(
-  fileName = "inst/Atlas/WarfarinStudy/sampleStudyAnalysisSpecification.json"
+  fileName = "inst/Optima/LungCancer/StudyAnalysisSpecification.json"
 )
 
 
@@ -29,7 +29,7 @@ resultsDatabaseConnectionDetails <- DatabaseConnector::createConnectionDetails(
 # Create results data model -------------------------
 
 # Use the 1st results folder to define the results data model
-path <-file.path(Sys.getenv("STRATEGUS_ROOT_FOLDER"),"rdb","WarfarinStudy")
+path <-file.path(Sys.getenv("STRATEGUS_ROOT_FOLDER"),"rdb","LungCancer")
 resultsFolder <- list.dirs(path = path, full.names = T, recursive = F)[1]
 resultsDataModelSettings <- Strategus::createResultsDataModelSettings(
   resultsDatabaseSchema = resultsDatabaseSchema,

@@ -60,17 +60,17 @@ cohortTableName <- CohortGenerator::getCohortTableNames(cohortTable = "cohort")
 # can install this by running:
 #
 # install.packages("Eunomia")
-connectionDetails <- Eunomia::getEunomiaConnectionDetails()
+#connectionDetails <- Eunomia::getEunomiaConnectionDetails()
 
 # You can use this snippet to test your connection
 #conn <- DatabaseConnector::connect(connectionDetails)
 #DatabaseConnector::disconnect(conn)
 
-analysisName <- "WarfarinStudy"
+analysisName <- "LungCancer"
 strategusWorkFolder <- file.path(outputLocation, databaseName, analysisName,"strategusWork")
 strategusOutputFolder <- file.path(outputLocation, databaseName, analysisName,"strategusOutput")
 ##=========== END OF INPUTS ==========
-analysisSpecifications <- ParallelLogger::loadSettingsFromJson(fileName = file.path("inst","Atlas",analysisName,"StudyAnalysisSpecification.json")
+analysisSpecifications <- ParallelLogger::loadSettingsFromJson(fileName = file.path("inst","Optima",analysisName,"StudyAnalysisSpecification.json")
 )
 
 # ====================================================================

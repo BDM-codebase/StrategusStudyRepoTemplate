@@ -21,7 +21,7 @@
 # Code for uploading results to a Postgres database
 resultsDatabaseSchema <- "strategus_results"
 analysisSpecifications <- ParallelLogger::loadSettingsFromJson(
-  fileName = "inst/Atlas/WarfarinStudy/StudyAnalysisSpecification.json"
+  fileName = "inst/Optima/LungCancer/StudyAnalysisSpecification.json"
 )
 
 
@@ -46,7 +46,7 @@ ParallelLogger::addDefaultErrorReportLogger(
 )
 
 # Upload Results ---------------------------------------------------------------
-path <- file.path( Sys.getenv("STRATEGUS_ROOT_FOLDER"), "rdb", "WarfarinStudy")
+path <- file.path( Sys.getenv("STRATEGUS_ROOT_FOLDER"), "rdb", "LungCancer")
 for (resultFolder in list.dirs(path = path, full.names = T, recursive = F)) {
   resultsDataModelSettings <- Strategus::createResultsDataModelSettings(
     resultsDatabaseSchema = resultsDatabaseSchema,

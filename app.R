@@ -29,6 +29,30 @@ resultsDatabaseSchema <- "strategus_results"
 
 
 # ADD OR REMOVE MODULES TAILORED TO YOUR STUDY
+# shinyConfig <- initializeModuleConfig() |>
+#   addModuleConfig(
+#     createDefaultAboutConfig()
+#   )  |>
+#   addModuleConfig(
+#     createDefaultDatasourcesConfig()
+#   )  |>
+#   addModuleConfig(
+#     createDefaultCohortGeneratorConfig()
+#   ) |>
+#   addModuleConfig(
+#     createDefaultCohortDiagnosticsConfig()
+#   ) |>
+#   addModuleConfig(
+#     createDefaultCharacterizationConfig()
+#   ) |>
+#   addModuleConfig(
+#     createDefaultPredictionConfig()
+#   ) |>
+#   addModuleConfig(
+#     createDefaultEstimationConfig()
+#   ) 
+
+
 shinyConfig <- initializeModuleConfig() |>
   addModuleConfig(
     createDefaultAboutConfig()
@@ -41,23 +65,13 @@ shinyConfig <- initializeModuleConfig() |>
   ) |>
   addModuleConfig(
     createDefaultCohortDiagnosticsConfig()
-  ) |>
-  addModuleConfig(
-    createDefaultCharacterizationConfig()
-  ) |>
-  addModuleConfig(
-    createDefaultPredictionConfig()
-  ) |>
-  addModuleConfig(
-    createDefaultEstimationConfig()
   ) 
-
 # now create the shiny app based on the config file and view the results
 # based on the connection 
 ShinyAppBuilder::createShinyApp(
   config = shinyConfig, 
   connectionDetails = resultsConnectionDetails,
-  resultDatabaseSettings = createDefaultResultDatabaseSettings(schema = resultsDatabaseSchema)
+  resultDatabaseSettings = createDefaultResultDatabaseSettings(schema = resultsDatabaseSchema),
   title = "Strategus Event November 2025",
   studyDescription = "This study is showcasing the capabilities of running Strategus on NVFlare network"
 )

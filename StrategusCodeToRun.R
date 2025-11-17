@@ -48,6 +48,7 @@ dbUser <- Sys.getenv("CLOUD_BDM_DEVELOPER")
 
 
 minCellCount <- 5 #The minimum number of subjects contributing to a count before it can be included in results.
+
 cohortTableName <- CohortGenerator::getCohortTableNames(cohortTable = "cohort") 
 
 
@@ -70,7 +71,7 @@ analysisName <- "LungCancer"
 strategusWorkFolder <- file.path(outputLocation, databaseName, analysisName,"strategusWork")
 strategusOutputFolder <- file.path(outputLocation, databaseName, analysisName,"strategusOutput")
 ##=========== END OF INPUTS ==========
-analysisSpecifications <- ParallelLogger::loadSettingsFromJson(fileName = file.path("inst","Optima",analysisName,"StudyAnalysisSpecification.json")
+analysisSpecifications <- ParallelLogger::loadSettingsFromJson(fileName = file.path("inst","Optima",analysisName,"strategusAnalysisSpecification.json")
 )
 
 # ====================================================================

@@ -21,7 +21,7 @@
 # Code for uploading results to a Postgres database
 resultsDatabaseSchema <- "strategus_results"
 analysisSpecifications <- ParallelLogger::loadSettingsFromJson(
-  fileName = "inst/Optima/LungCancer/StudyAnalysisSpecification.json"
+  fileName = "inst/Optima/LungCancer/strategusAnalysisSpecification.json"
 )
 
 

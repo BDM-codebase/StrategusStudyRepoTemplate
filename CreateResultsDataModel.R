@@ -14,7 +14,7 @@
 # Code for creating the result schema and tables in a PostgreSQL database
 resultsDatabaseSchema <- "strategus_results"
 analysisSpecifications <- ParallelLogger::loadSettingsFromJson(
-  fileName = "inst/Optima/LungCancer/StudyAnalysisSpecification.json"
+  fileName = "inst/Optima/LungCancer/strategusAnalysisSpecification.json"
 )
 
 

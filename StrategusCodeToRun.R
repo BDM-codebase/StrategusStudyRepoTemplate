@@ -18,7 +18,7 @@ Sys.setenv("VROOM_THREADS"=1) # Sets the number of threads to 1 to avoid deadloc
 
 ##=========== START OF INPUTS ==========
 # schema containing federated site omop data.The user (as identified in the connection details) will need to have read access to this database schema.
-cdmDatabaseSchema <-"synthea_bdm"
+cdmDatabaseSchema <-"lungcancer_synth10k"
 # schema that will contain the analysis result. The user (as identified in the connection details) will need to have write access to this database schema.
 workDatabaseSchema <- "strategus_results"
 

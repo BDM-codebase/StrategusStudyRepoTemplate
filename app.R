@@ -50,7 +50,7 @@ resultsDatabaseSchema <- "strategus_results"
 #   ) |>
 #   addModuleConfig(
 #     createDefaultEstimationConfig()
-#   ) 
+#   )
 
 
 shinyConfig <- initializeModuleConfig() |>
@@ -65,7 +65,9 @@ shinyConfig <- initializeModuleConfig() |>
   ) |>
   addModuleConfig(
     createDefaultCohortDiagnosticsConfig()
-  ) 
+  )
+
+
 # now create the shiny app based on the config file and view the results
 # based on the connection 
 ShinyAppBuilder::createShinyApp(

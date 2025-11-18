@@ -35,8 +35,8 @@ plpTimeAtRisks <- tibble(
 
 # If you are not restricting your study to a specific time window, 
 # please make these strings empty
- studyStartDate <- '20171201' #YYYYMMDD
- studyEndDate <- '20251231'   #YYYYMMDD
+ studyStartDate <- '19610120' #YYYYMMDD
+ studyEndDate <- '20251111'   #YYYYMMDD
 
 
 # Some of the settings require study dates with hyphens
@@ -605,5 +605,5 @@ analysisSpecifications <- Strategus::createEmptyAnalysisSpecifications() |>
 
 ParallelLogger::saveSettingsToJson(
   analysisSpecifications, 
-  file.path("inst","Optima","LungCancer","StudyAnalysisSpecification.json")
+  file.path("inst","Optima","LungCancer","strategusAnalysisSpecification.json")
 )

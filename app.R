@@ -10,6 +10,7 @@
 # is found at:
 # https://ohdsi.github.io/Strategus/articles/WorkingWithResults.html
 # ##############################################################################
+library(dplyr)
 
 library(ShinyAppBuilder)
 library(OhdsiShinyModules)
@@ -68,12 +69,13 @@ shinyConfig <- initializeModuleConfig() |>
   )
 
 
+
 # now create the shiny app based on the config file and view the results
 # based on the connection 
 ShinyAppBuilder::createShinyApp(
   config = shinyConfig, 
   connectionDetails = resultsConnectionDetails,
   resultDatabaseSettings = createDefaultResultDatabaseSettings(schema = resultsDatabaseSchema),
-  title = "Strategus Event November 2025",
-  studyDescription = "This study is showcasing the capabilities of running Strategus on NVFlare network"
+  title = "Lung Cancer",
+  studyDescription = "This study is showcasing the capabilities of running Strategus on Lung Cancer dataset"
 )
